@@ -1,15 +1,19 @@
 class Solution {
     public:
-        int search(vector<int>& nums, int target) {
+        bool search(vector<int>& nums, int target) {
             int n = nums.size();
             int low = 0, high = n - 1;
             while(low <= high){
                 int mid = low + (high - low) / 2;
                 if(target == nums[mid])
-                    return mid;
+                    return true;
                 
                 //check which half is sorted
-                
+                if (nums[low] == nums[mid] && nums[mid] == nums[high]) {
+                    low = low + 1;
+                    high = high - 1;
+                    continue;
+                }  
                 if(nums[low] <= nums[mid]){
                     
                     //check target is it in left half or not
@@ -29,6 +33,6 @@ class Solution {
                         high = mid - 1;
                 }
             }
-            return -1;
+            return false;
         }
     };
